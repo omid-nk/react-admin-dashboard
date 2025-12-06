@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "Open Sans";
-  src: url(src\assets\fonts\OpenSans-Regular.woff) format("woff");
+  src: url(public/fonts/OpenSans-Regular.woff) format("woff");
 }
 
 @theme {

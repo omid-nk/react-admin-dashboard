@@ -27,7 +27,7 @@ function Header() {
           <div className="h-12 w-12 rounded">
             <img
               className="rounded"
-              src="src\assets\images\img-avatar-default.png"
+              src="public/images/img-avatar-default.png"
               alt="user avatar"
             />
           </div>
