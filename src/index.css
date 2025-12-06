@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Open Sans";
+  src: url(src\assets\fonts\OpenSans-Regular.woff) format("woff");
+}
+
+@theme {
+  --font-primary: "Open Sans", sans-serif, Arial;
+}
