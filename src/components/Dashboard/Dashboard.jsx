@@ -39,7 +39,7 @@ function Dashboard() {
       </header>
       <div className="mt-6 w-full bg-white p-2">
         <h3 className="mb-4 text-center text-lg font-semibold text-gray-800">
-          Sales Line Chart
+          Sales Area Chart
         </h3>
         <div className="h-72 w-full">
           <AreaChart />

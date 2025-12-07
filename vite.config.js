@@ -5,7 +5,14 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   build: {
-    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          recharts: ["recharts"],
+          icons: ["react-icons"],
+        },
+      },
+    },
   },
   plugins: [react(), tailwindcss()],
   base: "/react-admin-dashboard/",
