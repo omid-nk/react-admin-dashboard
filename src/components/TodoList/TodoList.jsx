@@ -9,34 +9,38 @@ function TodoList() {
   const [isCreateNewTaskModuleOpen, setIsCreateNewTaskModuleOpen] =
     useState(false);
 
-  // هنگام لود صفحه، تسک‌ها را از LocalStorage بخوان
+  const [filter, setFilter] = useState("all");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
   useEffect(() => {
     const storedTodos = localStorage.getItem("todos");
-    if (storedTodos) {
-      setTodos(JSON.parse(storedTodos));
-    }
+    if (storedTodos) setTodos(JSON.parse(storedTodos));
   }, []);
 
-  // هر بار که todos تغییر کرد، LocalStorage را آپدیت کن
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  const addTask = (newTask) => {
-    setTodos((prev) => [...prev, newTask]);
-  };
+  const addTask = (newTask) => setTodos((prev) => [...prev, newTask]);
 
-  const deleteTask = (taskId) => {
+  const deleteTask = (taskId) =>
     setTodos((prev) => prev.filter((task) => task.id !== taskId));
-  };
 
-  const toggleComplete = (taskId) => {
+  const toggleComplete = (taskId) =>
     setTodos((prev) =>
       prev.map((task) =>
         task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : task,
       ),
     );
-  };
+
+  const filteredTodos = todos.filter((task) => {
+    if (filter === "completed") return task.isCompleted;
+    if (filter === "important") return task.isImportant;
+    return true;
+  });
+
+  const filterText =
+    filter === "all" ? "All" : filter.charAt(0).toUpperCase() + filter.slice(1);
 
   return (
     <>
@@ -48,14 +52,52 @@ function TodoList() {
           Add New Task
           <HiOutlinePlus className="h-5 w-5" />
         </button>
-        <div className="flex cursor-pointer items-center gap-1 rounded bg-gray-200 px-3 py-2 text-gray-600">
-          Filter
-          <HiOutlineChevronDown className="h-5 w-5" />
+
+        <div className="relative">
+          <button
+            onClick={() => setIsFilterOpen((prev) => !prev)}
+            className="flex cursor-pointer items-center gap-1 rounded bg-gray-200 px-3 py-2 text-gray-600"
+          >
+            {filterText}
+            <HiOutlineChevronDown className="h-5 w-5" />
+          </button>
+
+          {isFilterOpen && (
+            <ul className="absolute right-0 z-10 mt-1 w-36 rounded border border-gray-200 bg-white shadow-lg">
+              <li
+                onClick={() => {
+                  setFilter("all");
+                  setIsFilterOpen(false);
+                }}
+                className="cursor-pointer px-4 py-2 hover:bg-gray-100"
+              >
+                All
+              </li>
+              <li
+                onClick={() => {
+                  setFilter("completed");
+                  setIsFilterOpen(false);
+                }}
+                className="cursor-pointer px-4 py-2 hover:bg-gray-100"
+              >
+                Completed
+              </li>
+              <li
+                onClick={() => {
+                  setFilter("important");
+                  setIsFilterOpen(false);
+                }}
+                className="cursor-pointer px-4 py-2 hover:bg-gray-100"
+              >
+                Important
+              </li>
+            </ul>
+          )}
         </div>
       </header>
 
       <section>
-        {todos.map((item) => (
+        {filteredTodos.map((item) => (
           <Task
             key={id + item.id}
             {...item}
