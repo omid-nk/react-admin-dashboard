@@ -8,3 +8,7 @@
 @theme {
   --font-primary: "Open Sans", sans-serif, Arial;
 }
+
+.recharts-wrapper *:focus {
+  outline: none !important;
+}
