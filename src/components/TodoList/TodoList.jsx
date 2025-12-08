@@ -1,6 +1,6 @@
 import { useId, useState, useEffect } from "react";
 import { HiOutlinePlus, HiOutlineChevronDown } from "react-icons/hi2";
-import Task from "../modules/task/Task";
+import Task from "../modules/Task/Task";
 import CreateNewTaskModule from "../modules/CreateNewTaskModule/CreateNewTaskModule";
 
 function TodoList() {

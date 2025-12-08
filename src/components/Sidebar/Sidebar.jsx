@@ -13,7 +13,7 @@ function Sidebar({ switchMainContentHandler }) {
   const [activeLink, setActiveLink] = useState("dashboard");
 
   return (
-    <ul className="flex flex-col gap-2 rounded bg-white p-4 shadow">
+    <ul className="static top-2 flex flex-col gap-2 rounded bg-white p-4 shadow md:sticky">
       <UserCardMinimal className="flex lg:hidden" />
       <li
         onClick={() => {

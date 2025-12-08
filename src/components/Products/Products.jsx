@@ -1,32 +1,25 @@
 import { HiOutlineChevronDown } from "react-icons/hi2";
 import { HiOutlinePlusCircle } from "react-icons/hi2";
 import Product from "../modules/Product/Product";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Products() {
-  const [productsData, setProductsData] = useState([
-    {
-      id: 1,
-      img: "images/img-avatar-default.png",
-      name: "Product 1",
-      qty: 10,
-      price: 19.99,
-    },
-    {
-      id: 2,
-      img: "images/img-avatar-default.png",
-      name: "Product 2",
-      qty: 5,
-      price: 29.99,
-    },
-    {
-      id: 3,
-      img: "images/img-avatar-default.png",
-      name: "Product 3",
-      qty: 15,
-      price: 9.99,
-    },
-  ]);
+  const [productsData, setProductsData] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("https://fakestoreapi.com/products");
+        const data = await res.json();
+        setProductsData(data);
+      } catch (error) {
+        alert("Failed to fetch products data.");
+        return;
+      }
+    };
+    fetchProducts();
+  }, []);
+
   return (
     <>
       <div className="flex items-center justify-between rounded bg-gray-50 p-2">
