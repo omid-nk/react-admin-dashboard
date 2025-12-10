@@ -1,23 +1,35 @@
+import { useEffect, useState } from "react";
 import { HiOutlineChevronDown } from "react-icons/hi2";
 import { HiOutlinePlusCircle } from "react-icons/hi2";
 import Product from "../modules/Product/Product";
-import { useEffect, useState } from "react";
 
 function Products() {
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchProducts = async () => {
       try {
         const res = await fetch("https://fakestoreapi.com/products");
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
         const data = await res.json();
-        setProductsData(data);
+        if (isMounted) {
+          setProductsData(data);
+        }
       } catch (error) {
-        alert("Failed to fetch products data.");
+        console.error("Error fetching products:", error);
         return;
+      } finally {
+        if (isMounted) console.log("Fetch attempt finished");
       }
     };
     fetchProducts();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
